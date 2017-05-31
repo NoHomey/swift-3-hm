@@ -1,3 +1,9 @@
+extension String {
+    subscript (i: Int) -> Character {
+        return self[self.characters.index(self.startIndex, offsetBy: i)]
+    }
+}
+
 func preparaForParse(text: String) -> [String] {
     var result: [String] = [];
     text.characters.split { $0 == "\n" }.flatMap(String.init).forEach { string in
@@ -25,6 +31,18 @@ func isLetter(char: Character) -> Bool {
 
 func isWordCharacter(char: Character) -> Bool {
     return isLetter(char: char) || isDigit(char: char)
+}
+
+func extractIdentifier(text: String) -> String {
+    var result: String
+    let chars = text.characters
+    for i in 2..<chars.count {
+        if chars[i] == " " {
+            break
+        }
+        result += chars[i]
+    }
+    return result
 }
 
 func isValidIdentifier(text: String) -> Bool {
